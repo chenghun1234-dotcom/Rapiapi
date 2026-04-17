@@ -1,33 +1,43 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "MCP Config Auto-Generator",
+    "title": "MCP Config Auto Generator",
     "version": "1.0.0"
   },
   "paths": {
-    "/generate_config": {
-      "post": {
-        "summary": "Generate MCP config",
-        "description": "API endpoint for generating MCP config based on Swagger/OpenAPI spec.",
-        "operationId": "generateConfig",
-        "requestBody": { 
-          "content": {
-            "application/json": {
-              "schema": { $ref: "#/components/schemas/RequestBodySchema" } 
-            }
-          }
-        },
+    "/api/endpoint": {
+      "get": {
+        "summary": "MCP Config Auto Generation",
+        "description": "This endpoint automatically generates MCP config based on swagger/openapi JSON.",
+        "operationId": "generateMcConfig",
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": { $ref: "#/components/schemas/ConfigResponseSchema" } 
+                "schema": {
+                  $ref: "#/components/schemas/generatedConfig" 
+                }
               }
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string" 
+                    }
+                  },
+                  "required": [
+                    "error" 
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -35,18 +45,20 @@
   },
   "components": {
     "schemas": {
-      "RequestBodySchema": {
-        "type": "object",
-        "properties": {
-          // Define properties for your OpenAPI spec input here. 
-        }
-      },
-      "ConfigResponseSchema": {
-        "type": "object",
-        "properties": {
-          // Define properties for the MCP config output here. 
-        }
+      "generatedConfig": {
+        "$ref": "#/components/responses/generatedConfig"
       }
     }
-  }
+  },
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey", 
+      "name": "apiKey", 
+      "description": "API Key",
+      "in": "header"
+    }
+  },
+  "security": [
+    { "apiKeyAuth": [] }
+  ]
 }
