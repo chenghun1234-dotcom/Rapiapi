@@ -1,51 +1,33 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "description": "MCP Config 자동 생성기",
-    "title": "MCP Config 생성기",
-    "version": "1.0"
+    "title": "MCP Config Auto-Generator",
+    "version": "1.0.0"
   },
   "paths": {
-    "/api/config": {
+    "/generate_config": {
       "post": {
-        "summary": "MCP config 자동 생성",
-        "requestBody": {
-          "required": true,
+        "summary": "Generate MCP config",
+        "description": "API endpoint for generating MCP config based on Swagger/OpenAPI spec.",
+        "operationId": "generateConfig",
+        "requestBody": { 
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestData"
-              }
+              "schema": { $ref: "#/components/schemas/RequestBodySchema" } 
             }
           }
         },
         "responses": {
           "200": {
-            "description": "MCP Config 생성 성공",
+            "description": "Success",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": true,
-                    "idea": "MCP Config 자동 생성기"
-                  }
-                }
+                "schema": { $ref: "#/components/schemas/ConfigResponseSchema" } 
               }
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessages"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
+            "description": "Unauthorized"
           }
         }
       }
@@ -53,17 +35,16 @@
   },
   "components": {
     "schemas": {
-      "RequestData": {
+      "RequestBodySchema": {
         "type": "object",
         "properties": {
-          // Add properties defined in Swagger/OpenAPI JSON here
+          // Define properties for your OpenAPI spec input here. 
         }
       },
-      "ErrorMessages": {
+      "ConfigResponseSchema": {
         "type": "object",
         "properties": {
-          "status": "string", 
-          "message": "string" 
+          // Define properties for the MCP config output here. 
         }
       }
     }
