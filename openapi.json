@@ -1,40 +1,71 @@
 {
-  "openapi": "3.0.0",
+  "swagger": "2.0",
   "info": {
-    "title": "MCP Config Auto-Generator",
-    "version": "1.0.0"
+    "description": "MCP Config 자동 생성기",
+    "title": "MCP Config 생성기",
+    "version": "1.0"
   },
   "paths": {
-    "/swags/openapi.json": {
-      "get": {
-        "summary": "Get the OpenAPI JSON for MCP config.",
+    "/api/config": {
+      "post": {
+        "summary": "MCP config 자동 생성",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestData"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "MCP Config 생성 성공",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MCPConfig" 
+                  "type": "object",
+                  "properties": {
+                    "success": true,
+                    "idea": "MCP Config 자동 생성기"
+                  }
                 }
               }
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessages"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     }
-  }
+  },
   "components": {
     "schemas": {
-      "MCPConfig": {
+      "RequestData": {
         "type": "object",
         "properties": {
-          # Define properties of MCP config here
+          // Add properties defined in Swagger/OpenAPI JSON here
+        }
+      },
+      "ErrorMessages": {
+        "type": "object",
+        "properties": {
+          "status": "string", 
+          "message": "string" 
         }
       }
     }
   }
-
 }
