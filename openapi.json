@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MCP Config Auto-Generator",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/swags/openapi.json": {
+      "get": {
+        "summary": "Get the OpenAPI JSON for MCP config.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MCPConfig" 
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  }
+  "components": {
+    "schemas": {
+      "MCPConfig": {
+        "type": "object",
+        "properties": {
+          # Define properties of MCP config here
+        }
+      }
+    }
+  }
+
+}

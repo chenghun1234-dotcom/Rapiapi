@@ -1,0 +1,7 @@
+name = "mcp-config-generator"
+main = "src/index.ts"
+compatibility_date = "2024-04-03"
+account_id = "eddd343eb4246ff47b97da4052801edd"
+
+[vars]
+# Add vars here if needed
